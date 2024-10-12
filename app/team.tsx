@@ -20,8 +20,9 @@ console.log(mem);
 
 function Member(props: {member: IMember}) {
   return (<li>
-    {props.member.name} 
+    {props.member.name} <button style={{border: '1px solid white'}}>Delete</button>
     <div style={{'font-weight': 'bold'}}>({props.member.role})</div>
+    
   </li>);
 }
 export function Team({name}: {name: string, age?: number}) {
