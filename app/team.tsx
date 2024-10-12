@@ -18,10 +18,14 @@ const mem:IMember = {...cap};
 console.log(mem);
 
 
-function Member(props: {member: IMember}) {
+function Member({member, onDelete}: {member: IMember, onDelete: VoidFunction}) {
   return (<li>
-    {props.member.name} 
-    <div style={{'font-weight': 'bold'}}>({props.member.role})</div>
+    {member.name} 
+      <button style={{border: '1px solid white'}}
+        onClick={onDelete}
+      >Delete</button>
+    <div style={{'font-weight': 'bold'}}>({member.role})</div>
+  
   </li>);
 }
 export function Team({name}: {name: string, age?: number}) {
@@ -40,6 +44,13 @@ export function Team({name}: {name: string, age?: number}) {
         setNewMember('');
     }
   }
+  function onDeleteMember(target: IMember) {
+    const index = members.findIndex(m => m.name == target.name);
+    if (index >= 0) {
+      members.splice(index, 1);
+      setMembers([...members]);
+    }
+  }
   return (
     <div>
       This is team {name}
@@ -54,7 +65,8 @@ export function Team({name}: {name: string, age?: number}) {
       </div>
       <ul>
         {Array.from(members, (m) => {
-          return (<Member key={m.name} member={m} />)
+          return (<Member key={m.name} member={m} 
+            onDelete={() => onDeleteMember(m) } />)
         })}
       </ul>
     </div>
