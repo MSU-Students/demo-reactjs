@@ -19,27 +19,28 @@ console.log(mem);
 
 
 function Member({member, onDelete}: {member: IMember, onDelete: VoidFunction}) {
-  return (<li>
+  return (<li className='container rounded-md my-3 p-3 bg-slate-700'>
     {member.name} 
-      <button style={{border: '1px solid white'}}
+      <button
+        className='rounded-md bg-slate-600 px-2 ml-2 bg-red-600'
         onClick={onDelete}
       >Delete</button>
-    <div style={{'font-weight': 'bold'}}>({member.role})</div>
+    <div className='font-bold'>({member.role})</div>
   
   </li>);
 }
 export function Team({name}: {name: string, age?: number}) {
   const [newMember, setNewMember] = useState('');
   const [members, setMembers] = useState([
-    { name: 'Luffy D Dragon', role: 'captain'}, 
-    { name: 'Roronoa Zoro', role: 'Right hand'},
+    { name: 'Luffy D Dragon', role: 'Captain'}, 
+    { name: 'Roronoa Zoro', role: 'Right Hand'},
     { name: 'Nami', role: 'Navigator'}
   ] as IMember[]);
   function onRegister() {
     if (newMember) {
         setMembers([...members, {
             name: newMember,
-            role: 'Snipper'
+            role: 'Sniper'
         }])
         setNewMember('');
     }
@@ -52,8 +53,10 @@ export function Team({name}: {name: string, age?: number}) {
     }
   }
   return (
-    <div>
-      This is team {name}
+    <div className='container rounded-md mx-auto align-middle px-5 py-7 bg-center w-4/12 bg-gray-800'>
+      <h2 className='text-2xl'>
+      This is team <span className='text-red-500 font-bold'>{name}</span>
+      </h2>
       <div>
         <input 
           placeholder='Member' 
