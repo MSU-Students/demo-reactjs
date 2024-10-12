@@ -19,30 +19,32 @@ console.log(mem);
 
 
 function Member(props: {member: IMember}) {
-  return (<li>
+  return (<li className='container rounded-md my-3 p-3 bg-slate-700'>
     {props.member.name} 
-    <div style={{'font-weight': 'bold'}}>({props.member.role})</div>
+    <div style={{fontWeight: 'bold'}}>({props.member.role})</div>
   </li>);
 }
 export function Team({name}: {name: string, age?: number}) {
   const [newMember, setNewMember] = useState('');
   const [members, setMembers] = useState([
-    { name: 'Luffy D Dragon', role: 'captain'}, 
-    { name: 'Roronoa Zoro', role: 'Right hand'},
+    { name: 'Luffy D Dragon', role: 'Captain'}, 
+    { name: 'Roronoa Zoro', role: 'Right Hand'},
     { name: 'Nami', role: 'Navigator'}
   ] as IMember[]);
   function onRegister() {
     if (newMember) {
         setMembers([...members, {
             name: newMember,
-            role: 'Snipper'
+            role: 'Sniper'
         }])
         setNewMember('');
     }
   }
   return (
-    <div>
-      This is team {name}
+    <div className='container rounded-md mx-auto align-middle px-5 py-7 bg-center w-4/12 bg-gray-800'>
+      <h2 className='text-2xl'>
+      This is team <span className='text-red-500 font-bold'>{name}</span>
+      </h2>
       <div>
         <input 
           placeholder='Member' 
