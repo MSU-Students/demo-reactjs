@@ -18,10 +18,15 @@ const mem:IMember = {...cap};
 console.log(mem);
 
 
-function Member(props: {member: IMember}) {
+function Member({member, onDelete}: {member: IMember, onDelete: VoidFunction}) {
   return (<li className='container rounded-md my-3 p-3 bg-slate-700'>
-    {props.member.name} 
-    <div style={{fontWeight: 'bold'}}>({props.member.role})</div>
+    {member.name} 
+      <button
+        className='rounded-md bg-slate-600 px-2 ml-2 bg-red-600'
+        onClick={onDelete}
+      >Delete</button>
+    <div className='font-bold'>({member.role})</div>
+  
   </li>);
 }
 export function Team({name}: {name: string, age?: number}) {
@@ -40,6 +45,13 @@ export function Team({name}: {name: string, age?: number}) {
         setNewMember('');
     }
   }
+  function onDeleteMember(target: IMember) {
+    const index = members.findIndex(m => m.name == target.name);
+    if (index >= 0) {
+      members.splice(index, 1);
+      setMembers([...members]);
+    }
+  }
   return (
     <div className='container rounded-md mx-auto align-middle px-5 py-7 bg-center w-4/12 bg-gray-800'>
       <h2 className='text-2xl'>
@@ -56,7 +68,8 @@ export function Team({name}: {name: string, age?: number}) {
       </div>
       <ul>
         {Array.from(members, (m) => {
-          return (<Member key={m.name} member={m} />)
+          return (<Member key={m.name} member={m} 
+            onDelete={() => onDeleteMember(m) } />)
         })}
       </ul>
     </div>
