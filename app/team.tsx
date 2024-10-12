@@ -30,19 +30,22 @@ function Member({member, onDelete}: {member: IMember, onDelete: VoidFunction}) {
   </li>);
 }
 export function Team({name}: {name: string, age?: number}) {
-  const [newMember, setNewMember] = useState('');
+  const [newMemberName, setNewMemberName] = useState('');
+  const [newMemberRole, setNewMemberRole] = useState('');
   const [members, setMembers] = useState([
     { name: 'Luffy D Dragon', role: 'Captain'}, 
     { name: 'Roronoa Zoro', role: 'Right Hand'},
     { name: 'Nami', role: 'Navigator'}
   ] as IMember[]);
+
   function onRegister() {
-    if (newMember) {
+    if (newMemberName && newMemberRole) {
         setMembers([...members, {
-            name: newMember,
-            role: 'Sniper'
+            name: newMemberName,
+            role: newMemberRole
         }])
-        setNewMember('');
+        setNewMemberName('');
+        setNewMemberRole('');
     }
   }
   function onDeleteMember(target: IMember) {
@@ -53,18 +56,32 @@ export function Team({name}: {name: string, age?: number}) {
     }
   }
   return (
-    <div className='container rounded-md mx-auto align-middle px-5 py-7 bg-center w-4/12 bg-gray-800'>
+    <div className='container rounded-md mt-5 mx-auto align-middle px-5 py-7 bg-center w-4/12 bg-gray-800'>
       <h2 className='text-2xl'>
       This is team <span className='text-red-500 font-bold'>{name}</span>
       </h2>
-      <div>
+      <div className='mt-2 flex gap-2'>
         <input 
           placeholder='Member' 
           type='text' 
-          value={newMember} 
-          onChange={(e) => setNewMember(e.target.value)}
+          value={newMemberName} 
+          onChange={(e) => setNewMemberName(e.target.value)}
+          className='rounded-md px-1 w-40'
           />
-        <button type='button' onClick={onRegister} >Register</button>
+        <input 
+          placeholder='Position'
+          type="text" 
+          value={newMemberRole} 
+          onChange={(e) => setNewMemberRole(e.target.value)}
+          className='rounded-md px-1 w-40'
+          />
+        <button 
+          type='button' 
+          onClick={onRegister}
+          className='bg-slate-200 text-slate-900 rounded-md px-2'
+          >
+          Register
+        </button>
       </div>
       <ul>
         {Array.from(members, (m) => {
